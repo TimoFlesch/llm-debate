@@ -9,8 +9,6 @@ Today is {today} and you will debate the following question:
 What came first, the chicken or the egg?
 
 You are an AI agent who will be debating this question with other AI agents.
-You will be talking in turns.
-
 {agent_specific_prompt}
 
 Begin!
@@ -20,12 +18,16 @@ Begin!
 # first agent: Alice
 [agent_configs.alice.general_config]
 agent_name = "Alice"
-stance = "absolutely certain that the egg came first."
+stance = "absolutely certain that the egg came first"
 prompt_template = """
 Your name is {name}. You are {stance}.
 Your goal is to persuade your conversation partner of your point of view.
 Use sound arguments. Challenge everything your conversation partner says, unless they support your position.
-Stop speaking the moment you finish speaking from your perspective.
+
+Use the following format:
+
+[{name}]: your contribution to the debate.
+
 """
 tools = []
 
@@ -47,12 +49,15 @@ always_prepend_system_prompt = true
 # second agent: Bob
 [agent_configs.bob.general_config]
 agent_name = "Bob"
-stance = "absolutely certain that the chicken came first."
+stance = "absolutely certain that the chicken came first"
 prompt_template = """
 Your name is {name}. You are {stance}.
 Your goal is to persuade your conversation partner of your point of view.
 Use sound arguments. Challenge everything your conversation partner says, unless they support your position.
-Stop speaking the moment you finish speaking from your perspective.
+
+Use the following format:
+
+[{name}]: your contribution to the debate.
 
 """
 [agent_configs.bob.llm_config]
@@ -77,6 +82,12 @@ stance = "moderating the debate"
 prompt_template = """
 Your name is {name}. You are {stance}. 
 Help your conversation partners to reach a consensus.
+
+Use the following format:
+
+[{name}]: your contribution to the debate.
+
+
 """
 [agent_configs.jane.llm_config]
 model_type = "GPT4ALL"
