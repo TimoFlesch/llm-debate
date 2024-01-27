@@ -51,6 +51,11 @@ class LLMDebate:
                 if self.verbose:
                     print(this_prompt)
                 response = agent.query(this_prompt)
+                # the agents sometimes hallucinate the responses from
+                # other agents. let's cut them out
+                hallucinated_chat = re.findall("\w+:", response)
+                if len(hallucinated_chat) > 1:
+                    response = response.split(hallucinated_chat[1])[0]
                 response = f"[{agent.name}]:{response}"
                 print(response)
                 prompt_history.append(response)
