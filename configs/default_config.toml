@@ -1,0 +1,110 @@
+[debate_config]
+max_iter = 10
+verbose = false
+random_order = false
+system_prompt = """
+
+Today is {today} and you will debate the following question:
+
+What came first, the chicken or the egg?
+
+You are an AI agent who will be debating this question with other AI agents.
+You will be talking in turns.
+
+{agent_specific_prompt}
+
+Begin!
+
+{prompt_history}
+"""
+# first agent: Alice
+[agent_configs.alice.general_config]
+agent_name = "Alice"
+stance = "absolutely certain that the egg came first."
+prompt_template = """
+Your name is {name}. You are {stance}.
+Your goal is to persuade your conversation partner of your point of view.
+Use sound arguments. Challenge everything your conversation partner says, unless they support your position.
+Stop speaking the moment you finish speaking from your perspective.
+"""
+tools = []
+
+[agent_configs.alice.llm_config]
+model_type = "GPT4ALL"
+model_name = "orca-mini-3b-gguf2-q4_0.gguf"
+model_path = "/home/timo/code/agentic-llm/models/"
+temperature = 0
+top_p = 0.4
+top_k = 40
+max_tokens = 200
+allow_download = false
+device = "cpu"
+context_length = 4_096
+verbose = false
+stop = "Observation"
+always_prepend_system_prompt = true
+
+# second agent: Bob
+[agent_configs.bob.general_config]
+agent_name = "Bob"
+stance = "absolutely certain that the chicken came first."
+prompt_template = """
+Your name is {name}. You are {stance}.
+Your goal is to persuade your conversation partner of your point of view.
+Use sound arguments. Challenge everything your conversation partner says, unless they support your position.
+Stop speaking the moment you finish speaking from your perspective.
+
+"""
+[agent_configs.bob.llm_config]
+model_type = "GPT4ALL"
+model_name = "orca-mini-3b-gguf2-q4_0.gguf"
+model_path = "/home/timo/code/agentic-llm/models/"
+temperature = 0
+top_p = 0.4
+top_k = 40
+max_tokens = 200
+allow_download = false
+device = "cpu"
+context_length = 4_096
+verbose = false
+stop = "Observation"
+always_prepend_system_prompt = true
+
+# third agent: Jane
+[agent_configs.jane.general_config]
+agent_name = "Jane"
+stance = "moderating the debate"
+prompt_template = """
+Your name is {name}. You are {stance}. 
+Help your conversation partners to reach a consensus.
+"""
+[agent_configs.jane.llm_config]
+model_type = "GPT4ALL"
+model_name = "orca-mini-3b-gguf2-q4_0.gguf"
+model_path = "/home/timo/code/agentic-llm/models/"
+temperature = 0
+top_p = 0.4
+top_k = 40
+max_tokens = 200
+allow_download = false
+device = "cpu"
+context_length = 4_096
+verbose = false
+stop = "Observation"
+always_prepend_system_prompt = true
+
+# optional tools
+[tools_config."DuckDuckGo Search"]
+max_results = 3
+instant_answers = false
+safe_search = true
+time_limit = true
+add_url = false
+confirm_action = false
+
+
+[tools_config.Wikipedia]
+max_results = 1
+max_words = 200
+language = "en"
+confirm_action = false
