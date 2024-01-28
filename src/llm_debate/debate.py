@@ -54,9 +54,9 @@ class LLMDebate:
                 # the agents sometimes hallucinate the responses from
                 # other agents. let's cut them out
                 hallucinated_chat = re.findall("\s\[?\w+\]?:", response)
-                if len(hallucinated_chat):
-                    response = response.split(hallucinated_chat[0])[0]
-                response = f"[{agent.name}]:{response}"
+                if len(hallucinated_chat) > 1:
+                    response = response.split(hallucinated_chat[1])[0]
+                # response = f"[{agent.name}]:{response}"
                 print(response)
                 prompt_history.append(response)
             n_iter += 1

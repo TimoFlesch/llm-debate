@@ -76,34 +76,6 @@ verbose = false
 stop = "Observation"
 always_prepend_system_prompt = true
 
-# third agent: Jane
-[agent_configs.jane.general_config]
-agent_name = "Jane"
-stance = "moderating the debate"
-prompt_template = """
-Your name is {name}. You are {stance}. 
-Help your conversation partners to reach a consensus.
-
-Use the following format:
-
-[{name}]: your contribution to the debate.
-
-Only speak from your perspective!
-"""
-[agent_configs.jane.llm_config]
-model_type = "GPT4ALL"
-model_name = "wizardlm-13b-v1.2.Q4_0.gguf"            #"mistral-7b-openorca.Q4_0.gguf"
-model_path = "/home/timo/tmp/code/llm-debate/models/"
-temperature = 0
-top_p = 0.4
-top_k = 40
-max_tokens = 200
-allow_download = false
-device = "cpu"
-context_length = 4_096
-verbose = false
-stop = "Observation"
-always_prepend_system_prompt = true
 
 # optional tools
 [tools_config."DuckDuckGo Search"]
